@@ -9,9 +9,13 @@ function Categories({route, navigation}) {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
+        navigation.setOptions({headerTitle: "Kategorien"})
         let url;
         if (route.params !== undefined) {
             url = route.params.url
+            if (route.params.title !== undefined) {
+                navigation.setOptions({headerTitle: route.params.title})
+            }
         }
         Api.categories(url)
             .then(response => response.json())
@@ -29,7 +33,7 @@ function Categories({route, navigation}) {
                 if (c._links.subcategories !== undefined) {
                     return (
                         <View key={c.categoryId}>
-                            <TouchableHighlight onPress={() => navigation.push("KategorienStack", {url: c._links.subcategories.href})} key={c.name}>
+                            <TouchableHighlight onPress={() => navigation.push("KategorienStack", {url: c._links.subcategories.href, title: c.name})} key={c.name}>
                                 <View>
                                     <Text>{c.name}</Text>
                                 </View>
@@ -39,7 +43,7 @@ function Categories({route, navigation}) {
                 } else if (c._links.articles !== undefined) {
                     return (
                         <View key={c.categoryId}>
-                            <TouchableHighlight onPress={() => navigation.push("List", {url: c._links.articles.href})} key={c.name}>
+                            <TouchableHighlight onPress={() => navigation.push("List", {url: c._links.articles.href, title: c.name})} key={c.name}>
                                 <View>
                                     <Text>{c.name}</Text>
                                 </View>

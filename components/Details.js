@@ -4,10 +4,11 @@ import Api from "../util/Api";
 import CartObj from "../objects/CartObj";
 import AsyncImage from "./AsyncImage";
 
-export default function Details({route}) {
+export default function Details({navigation, route}) {
     const [article, setArticle] = useState()
 
     useEffect(() => {
+        navigation.setOptions({headerTitle: "Artikel"})
         Api.details(route.params.url)
             .then(response => response.json())
             .then(response => setArticle(response))

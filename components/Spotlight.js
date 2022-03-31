@@ -9,6 +9,7 @@ function Spotlight({navigation}) {
     const [articles, setArticles] = useState([])
 
     useEffect(() => {
+        navigation.setOptions({headerTitle: "Spotlight"})
         Api.spotlight()
             .then(response => response.json())
             .then(response => setArticles(response._embedded.articles))

@@ -7,6 +7,9 @@ export default function ArticleList({route, navigation}) {
     const [articles, setArticles] = useState([])
 
     useEffect(() => {
+        if (route.params !== undefined && route.params.title != undefined) {
+            navigation.setOptions({headerTitle: route.params.title})
+        }
         Api.articles(route.params.url)
             .then(response => response.json())
             .then(response => {
