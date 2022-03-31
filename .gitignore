@@ -58,3 +58,4 @@ buck-out/
 
 ios/
 android/
+package-lock.json
