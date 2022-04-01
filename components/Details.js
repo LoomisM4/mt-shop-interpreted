@@ -9,8 +9,7 @@ export default function Details({navigation, route}) {
 
     useEffect(() => {
         navigation.setOptions({headerTitle: "Artikel"})
-        Api.details(route.params.url)
-            .then(response => response.json())
+        Api.articlesAndDetails(route.params.url)
             .then(response => setArticle(response))
             .catch(error => console.log(Api.error))
     }, [])

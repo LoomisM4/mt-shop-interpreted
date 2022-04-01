@@ -18,7 +18,6 @@ function Categories({route, navigation}) {
             }
         }
         Api.categories(url)
-            .then(response => response.json())
             .then(response => setCategories(response._embedded.categories))
             .catch(error => console.log(Api.error))
     }, [])

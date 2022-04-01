@@ -10,10 +10,8 @@ export default function ArticleList({route, navigation}) {
         if (route.params !== undefined && route.params.title != undefined) {
             navigation.setOptions({headerTitle: route.params.title})
         }
-        Api.articles(route.params.url)
-            .then(response => response.json())
+        Api.articlesAndDetails(route.params.url)
             .then(response => {
-                console.log(response._embedded.articles)
                 setArticles(response._embedded.articles)
             })
             .catch(error => console.log(Api.error))

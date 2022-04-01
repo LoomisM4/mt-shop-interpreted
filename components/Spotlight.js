@@ -11,7 +11,6 @@ function Spotlight({navigation}) {
     useEffect(() => {
         navigation.setOptions({headerTitle: "Spotlight"})
         Api.spotlight()
-            .then(response => response.json())
             .then(response => setArticles(response._embedded.articles))
             .catch(() => console.log(Api.error))
     }, [])
