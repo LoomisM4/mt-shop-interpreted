@@ -14,7 +14,7 @@ export default function Map() {
         const long = position.coords.longitude
         const lat = position.coords.latitude
         setText("Long: " + long + ", Lat: " + lat)
-    }, error => setText(error.message), {enableHighAccuracy: true, timeout: 5000})
+    }, error => setText(error.message), {enableHighAccuracy: true, timeout: 30000})
 
     return (
         <Text>{text}</Text>

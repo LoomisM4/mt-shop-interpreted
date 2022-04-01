@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, Button, Text, SafeAreaView, TouchableHighlight} from "react-native";
+import {View, Button, Text, SafeAreaView, TouchableHighlight, Alert} from "react-native";
 import CartObj from "../objects/CartObj";
 
 export default function Cart() {
-    const [articles, setArticles] = useState([])
+    const [articles, setArticles] = useState(CartObj.cart.articles)
+    const [flag, setFlag] = useState(true)
 
     useEffect(() => {
         setArticles(CartObj.cart.articles)
@@ -13,7 +14,7 @@ export default function Cart() {
         return (
             <SafeAreaView>
                 {articles.map(cartArticle => (
-                    <View key={cartArticle.article.articleId} style={{flexDirection: "row"}}>
+                    <View key={cartArticle.article.id} style={{flexDirection: "row"}}>
                         <Text style={{flex: 1}}>{cartArticle.article.name}</Text>
                         <TouchableHighlight style={{flex: 1}} onPress={() => less(cartArticle)}>
                             <Text>-</Text>
@@ -35,17 +36,21 @@ export default function Cart() {
 
     function less(cartArticle) {
         CartObj.cart.removeArticle(cartArticle.article)
-        setArticles(CartObj.cart.articles)
+        forceRedraw()
     }
 
     function more(cartArticle) {
         CartObj.cart.addArticle(cartArticle.article)
-        setArticles(CartObj.cart.articles)
+        forceRedraw()
     }
 
     function sendOrder() {
-        //alert("Bestellung erfolgreich abgeschickt")
+        Alert.alert("Erfolg", "Die Bestellung wurde erfolgreich abgeschickt")
         CartObj.cart.clear()
         setArticles(CartObj.cart.articles)
+    }
+
+    function forceRedraw() {
+        setFlag(!flag)
     }
 }
