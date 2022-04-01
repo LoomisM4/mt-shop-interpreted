@@ -1,5 +1,5 @@
 import { Cache } from "react-native-cache";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Api {
     static baseUrl = "https://shop.marcelwettach.eu";
@@ -7,12 +7,12 @@ export default class Api {
     static cache = new Cache({
         namespace: "shopCache",
         policy: {
-            maxEntries: 50000, // if unspecified, it can have unlimited entries
-            stdTTL: 0 // the standard ttl as number in seconds, default: 0 (unlimited)
+            maxEntries: 50000,
+            stdTTL: 0
         },
-        backend: "AsyncStorage"
+        backend: AsyncStorage
     });
-    static online = true
+    static online = true // TODO
 
     static spotlight() {
         let url = Api.baseUrl + "/spotlight"
@@ -40,12 +40,14 @@ export default class Api {
                 .then(blob => new Promise(callback => {
                     let reader = new FileReader() ;
                     reader.onload = function(){
+                        console.log("caching")
                         Api.cache.set(url, this.result)
                         callback(this.result)
                     } ;
                     reader.readAsDataURL(blob) ;
                 }));
         } else {
+            console.log("serving from cache")
             return Api.cache.get(url)
         }
     }
@@ -55,11 +57,13 @@ export default class Api {
             return fetch(url)
                 .then(response => response.json())
                 .then(json => {
-                    //Api.cache.set(url, json)
+                    console.log("caching")
+                    Api.cache.set(url, json)
                     return Promise.resolve(json)
                 })
         } else {
-            Api.cache.get(url)
+            console.log("serving from cache")
+            return Api.cache.get(url)
         }
     }
 }
