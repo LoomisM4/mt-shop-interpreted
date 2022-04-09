@@ -29,9 +29,9 @@ export default function Details({navigation, route}) {
                             )
                         })}
                     </ScrollView>
-                    <Text>{article.name}</Text>
-                    <Text>{article.description}</Text>
                     <Button title={"Zum Warenkorb hinzufügen"} onPress={() => addToCart(article)}/>
+                    <Text style={{textAlign: "center", fontSize: 20, marginTop: 10}}>{article.name}</Text>
+                    <Text style={{textAlign: "center", padding: 5}}>{article.description}</Text>
                 </ScrollView>
             </SafeAreaView>
         )
