@@ -8,6 +8,7 @@ export default function Cart() {
 
     useEffect(() => {
         setArticles(CartObj.cart.articles)
+        forceRedraw()
     }, [])
 
     if (articles.length > 0) {
