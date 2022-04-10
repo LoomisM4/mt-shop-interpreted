@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, TouchableHighlight, View} from "react-native";
+import {FlatList, Text, TouchableHighlight, View} from "react-native";
 import Api from "../util/Api";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ArticleList from "./ArticleList";
@@ -28,29 +28,24 @@ function Categories({route, navigation}) {
         )
     } else {
         return (
-            categories.map(c => {
-                if (c._links.subcategories !== undefined) {
-                    return (
-                        <View key={c.categoryId}>
-                            <TouchableHighlight onPress={() => navigation.push("KategorienStack", {url: c._links.subcategories.href, title: c.name})} key={c.name}>
-                                <View>
-                                    <Text>{c.name}</Text>
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-                    )
-                } else if (c._links.articles !== undefined) {
-                    return (
-                        <View key={c.categoryId}>
-                            <TouchableHighlight onPress={() => navigation.push("List", {url: c._links.articles.href, title: c.name})} key={c.name}>
-                                <View>
-                                    <Text>{c.name}</Text>
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-                    )
-                }
-            })
+            <FlatList
+                data={categories}
+                renderItem={({item}) => {
+                    if (item._links.subcategories !== undefined) {
+                        return <TouchableHighlight onPress={() => navigation.push("KategorienStack", {url: item._links.subcategories.href, title: item.name})} key={item.name}>
+                            <View>
+                                <Text style={{fontSize: 25, marginBottom: 10, paddingLeft: 5}}>{item.name}</Text>
+                            </View>
+                        </TouchableHighlight>
+                    } else if (item._links.articles !== undefined) {
+                        return <TouchableHighlight onPress={() => navigation.push("List", {url: item._links.articles.href, title: item.name})} key={item.name}>
+                            <View>
+                                <Text style={{fontSize: 25, marginBottom: 10, paddingLeft: 5}}>{item.name}</Text>
+                            </View>
+                        </TouchableHighlight>
+                    }
+                }}
+            />
         )
     }
 }
