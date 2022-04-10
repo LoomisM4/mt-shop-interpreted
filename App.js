@@ -16,24 +16,28 @@ const App: () => Node = () => {
           <Tab.Navigator style={{flex: 1}}>
               <Tab.Screen name={"Spotlight"} component={SpotlightStack} options={{
                   headerShown: false,
+                  tabBarShowLabel: false,
                   tabBarIcon: (focused, color, size) => {
-                      return <Ionicons name={"star"} size={size} color={color}/>
+                      return <Ionicons name={"star-outline"} size={30} color={color}/>
                   }
               }}/>
               <Tab.Screen name={"Kategorien"} component={CategoriesStack} options={{
                   headerShown: false,
+                  tabBarShowLabel: false,
                   tabBarIcon: (focused, color, size) => {
-                      return <Ionicons name={"list-outline"} size={size} color={color}/>
+                      return <Ionicons name={"list-outline"} size={30} color={color}/>
                   }
               }}/>
               <Tab.Screen name={"Warenkorb"} component={Cart} options={{
+                  tabBarShowLabel: false,
                   tabBarIcon: (focused, color, size) => {
-                      return <Ionicons name={"cart-outline"} size={size} color={color}/>
+                      return <Ionicons name={"cart-outline"} size={30} color={color}/>
                   }
               }}/>
               <Tab.Screen name={"Umgebung"} component={Map} options={{
+                  tabBarShowLabel: false,
                   tabBarIcon: (focused, color, size) => {
-                      return <Ionicons name={"map-outline"} size={size} color={color}/>
+                      return <Ionicons name={"map-outline"} size={30} color={color}/>
                   }
               }}/>
           </Tab.Navigator>
