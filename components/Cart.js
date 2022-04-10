@@ -16,18 +16,20 @@ export default function Cart() {
             <SafeAreaView>
                 {articles.map(cartArticle => (
                     <View key={cartArticle.article.id} style={{flexDirection: "row"}}>
-                        <Text style={{flex: 1}}>{cartArticle.article.name}</Text>
-                        <TouchableHighlight style={{flex: 1}} onPress={() => less(cartArticle)}>
-                            <Text>-</Text>
-                        </TouchableHighlight>
-                        <Text style={{flex: 1}}>{cartArticle.quantity}</Text>
-                        <TouchableHighlight style={{flex: 1}} onPress={() => more(cartArticle)}>
-                            <Text>+</Text>
-                        </TouchableHighlight>
-                        <Text style={{flex: 1}}>{cartArticle.getPositionPrice().toFixed(2)}</Text>
+                        <Text style={{flex: 1, fontSize: 20}}>{cartArticle.article.name}</Text>
+                        <View style={{flex: 1, flexDirection: "row"}}>
+                            <TouchableHighlight onPress={() => less(cartArticle)}>
+                                <Text style={{fontSize: 20, marginRight: 30}}>-</Text>
+                            </TouchableHighlight>
+                            <Text style={{fontSize: 20}}>{cartArticle.quantity}</Text>
+                            <TouchableHighlight onPress={() => more(cartArticle)}>
+                                <Text style={{fontSize: 20, marginLeft: 30}}>+</Text>
+                            </TouchableHighlight>
+                        </View>
+                        <Text style={{fontSize: 20}}>{cartArticle.getPositionPrice().toFixed(2)}</Text>
                     </View>
                 ))}
-                <Text>{CartObj.cart.getTotalPrice().toFixed(2)}</Text>
+                <Text style={{fontSize: 20}}>Preis: {CartObj.cart.getTotalPrice().toFixed(2)}</Text>
                 <Button title={"Zahlungspflichtig bestellen"} onPress={sendOrder}/>
             </SafeAreaView>
         )
