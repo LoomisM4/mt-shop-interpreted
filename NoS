@@ -1,0 +1,17 @@
+mt-shop-interpreted                         616
+    components/                     425
+        ArticleList.js      54
+        AsyncImage.js       43
+        Cart.js             89
+        Categories.js       95
+        Details.js          55
+        Map.js              42
+        Spotlight.js        47
+    objects/                        57
+        CartObj.js          57
+    util/                           70
+        Api.js              70
+    App.js                          55
+
+    AndroidManifest.xml             7
+    Info.plist                      2

@@ -2,34 +2,35 @@ import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, Text} from "react-native";
 import Api from "../util/Api";
 
-export default function AsyncImage(props) {
-    const [img, setImg] = useState()
-    const [width, setWidth] = useState(0)
-    const [height, setHeight] = useState(0)
+export default function AsyncImage(props) { // 1
+    const [img, setImg] = useState() // 2
+    const [width, setWidth] = useState(0) // 2
+    const [height, setHeight] = useState(0) // 2
 
-    useEffect(() => {
-        Api.image(props.url)
-            .then(response => {
-                Image.getSize(response, (w, h) => {
-                    let windowWidth = Dimensions.get("window").width
-                    let ratio;
-                    if (props.width === undefined) {
-                        setWidth(windowWidth)
-                        ratio = windowWidth / w
-                    } else {
-                        setWidth(windowWidth * props.width)
-                        ratio = windowWidth * props.width / w
+    useEffect(() => { // 1
+        Api.image(props.url) // 2
+            .then(response => { // 1
+                Image.getSize(response, (w, h) => { // 1
+                    let windowWidth = Dimensions.get("window").width // 3
+                    let ratio; // 0
+                    if (props.width === undefined) { // 3
+                        setWidth(windowWidth) // 1
+                        ratio = windowWidth / w // 2
+                    } else { // 1
+                        setWidth(windowWidth * props.width) // 3
+                        ratio = windowWidth * props.width / w // 3
                     }
-                    setHeight(h * ratio)
-                }, e => console.log(e));
-                setImg(response)
+                    setHeight(h * ratio) // 2
+                }, e => console.log(e)); // 0
+                setImg(response) // 1
             })
-            .catch(() => console.log(Api.error))
     }, [])
 
-    if (img === undefined) {
-        return <Text>Laden...</Text>
-    } else {
-        return <Image source={{uri: img}} style={{width: width, height: height}}/>
+    if (img === undefined) { // 2
+        return <Text>Laden...</Text> // 2
+    } else { // 1
+        return <Image source={{uri: img}} style={{width: width, height: height}}/> // 7
     }
 }
+
+// 43

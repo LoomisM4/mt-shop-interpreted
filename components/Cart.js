@@ -2,58 +2,60 @@ import React, {useEffect, useState} from 'react';
 import {View, Button, Text, SafeAreaView, TouchableHighlight, Alert} from "react-native";
 import CartObj from "../objects/CartObj";
 
-export default function Cart() {
-    const [articles, setArticles] = useState(CartObj.cart.articles)
-    const [flag, setFlag] = useState(true)
+export default function Cart() { // 1
+    const [articles, setArticles] = useState(CartObj.cart.articles) // 4
+    const [flag, setFlag] = useState(true) // 2
 
-    useEffect(() => {
-        setArticles(CartObj.cart.articles)
-        forceRedraw()
+    useEffect(() => { // 1
+        setArticles(CartObj.cart.articles) // 3
+        forceRedraw() // 1
     }, [])
 
-    if (articles.length > 0) {
-        return (
-            <SafeAreaView>
-                {articles.map(cartArticle => (
-                    <View key={cartArticle.article.id} style={{flexDirection: "row"}}>
-                        <Text style={{flex: 1, fontSize: 20}}>{cartArticle.article.name}</Text>
-                        <View style={{flex: 1, flexDirection: "row"}}>
-                            <TouchableHighlight onPress={() => less(cartArticle)}>
-                                <Text style={{fontSize: 20, marginRight: 30}}>-</Text>
+    if (articles.length > 0) { // 3
+        return ( // 1
+            <SafeAreaView> <!-- 1 -->
+                {articles.map(cartArticle => ( // 1
+                    <View key={cartArticle.article.id} style={{flexDirection: "row"}}> <!-- 6 -->
+                        <Text style={{flex: 1, fontSize: 20}}>{cartArticle.article.name}</Text> <!-- 6 -->
+                        <View style={{flex: 1, flexDirection: "row"}}> <!-- 4 -->
+                            <TouchableHighlight onPress={() => less(cartArticle)}> <!-- 3 -->
+                                <Text style={{fontSize: 20, marginRight: 30}}>-</Text> <!-- 4 -->
                             </TouchableHighlight>
-                            <Text style={{fontSize: 20}}>{cartArticle.quantity}</Text>
-                            <TouchableHighlight onPress={() => more(cartArticle)}>
-                                <Text style={{fontSize: 20, marginLeft: 30}}>+</Text>
+                            <Text style={{fontSize: 20}}>{cartArticle.quantity}</Text> <!-- 4 -->
+                            <TouchableHighlight onPress={() => more(cartArticle)}> <!-- 3 -->
+                                <Text style={{fontSize: 20, marginLeft: 30}}>+</Text> <!-- 4 -->
                             </TouchableHighlight>
                         </View>
-                        <Text style={{fontSize: 20}}>{cartArticle.getPositionPrice().toFixed(2)}</Text>
+                        <Text style={{fontSize: 20}}>{cartArticle.getPositionPrice().toFixed(2)}</Text> <!-- 5 -->
                     </View>
                 ))}
-                <Text style={{fontSize: 20}}>Preis: {CartObj.cart.getTotalPrice().toFixed(2)}</Text>
-                <Button title={"Zahlungspflichtig bestellen"} onPress={sendOrder}/>
+                <Text style={{fontSize: 20}}>Preis: {CartObj.cart.getTotalPrice().toFixed(2)}</Text> <!-- 6 -->
+                <Button title={"Zahlungspflichtig bestellen"} onPress={sendOrder}/> <!-- 3 -->
             </SafeAreaView>
         )
-    } else {
-        return <Text>Der Warenkorb ist leer</Text>
+    } else { // 1
+        return <Text>Der Warenkorb ist leer</Text> // 2
     }
 
-    function less(cartArticle) {
-        CartObj.cart.removeArticle(cartArticle.article)
-        forceRedraw()
+    function less(cartArticle) { // 1
+        CartObj.cart.removeArticle(cartArticle.article) // 3
+        forceRedraw() // 1
     }
 
-    function more(cartArticle) {
-        CartObj.cart.addArticle(cartArticle.article)
-        forceRedraw()
+    function more(cartArticle) { // 1
+        CartObj.cart.addArticle(cartArticle.article) // 3
+        forceRedraw() // 1
     }
 
-    function sendOrder() {
-        Alert.alert("Erfolg", "Die Bestellung wurde erfolgreich abgeschickt")
-        CartObj.cart.clear()
-        setArticles(CartObj.cart.articles)
+    function sendOrder() { // 1
+        Alert.alert("Erfolg", "Die Bestellung wurde erfolgreich abgeschickt") // 1
+        CartObj.cart.clear() // 2
+        setArticles(CartObj.cart.articles) // 3
     }
 
-    function forceRedraw() {
-        setFlag(!flag)
+    function forceRedraw() { // 1
+        setFlag(!flag) // 2
     }
 }
+
+// 89
